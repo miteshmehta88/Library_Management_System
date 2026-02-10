@@ -1,0 +1,61 @@
+LIBRARY MANAGEMENT SYSTEM - TECHNICAL NOTES
+
+ARCHITECTURE OVERVIEW
+The system follows an object-oriented design with three primary classes:
+- Book: Represents library inventory items with metadata and availability tracking
+- Member: Represents library patrons with borrowing capabilities and limits
+- Library: Central manager coordinating book and member operations
+
+CORE DESIGN PATTERNS
+1. State Management: Book objects maintain is_available boolean state
+2. Collection Management: Library maintains separate lists for books and members
+3. Validation: Operations validate constraints before execution (5-book limit, availability checks)
+4. Search: Linear search implementation for book lookup by keyword
+
+KEY IMPLEMENTATION DETAILS
+
+Book Class:
+- Immutable metadata (id, title, author, genre)
+- Mutable state (is_available flag)
+- Methods: borrow() sets is_available=False, return_book() sets is_available=True
+- String representation includes current availability status
+
+Member Class:
+- Fixed attributes (id, name, age, contact_info)
+- Dynamic borrowed_books list (max 5 items)
+- borrow_book() validates: member has space AND book is available
+- return_book() validates: book exists in member's borrowed list
+
+Library Class:
+- Maintains two collections: books list and members list
+- issue_book() combines Book.borrow() + Member.borrow_book()
+- return_book() combines Member.return_book() + Book.return_book()
+- available_books() filters books by is_available, supports optional genre filter
+- search_book() performs case-insensitive substring matching on title/author
+- most_popular_genre_from_issued_books() counts genres of unavailable books
+
+CONSTRAINTS & BUSINESS RULES
+- Maximum 5 books per member simultaneously
+- Books cannot be borrowed if is_available=False
+- Members cannot return books they didn't borrow
+- Genre filtering requires exact genre match
+
+OPERATIONAL FLOW
+1. Create library instance
+2. Add books and members to library
+3. issue_book() transfers book between states and updates member list
+4. return_book() reverses the process
+5. Query operations (available_books, search_book) provide read-only access
+
+COMPLEXITY ANALYSIS
+- add/remove operations: O(n) for lists
+- search_book: O(n) linear search
+- available_books: O(n) with optional O(1) genre comparison
+- most_popular_genre: O(n) with genre counting
+
+SAMPLE DATA
+21 books across genres: Fiction, Dystopian, Fantasy, Adventure, Thriller, Mystery, Literature
+7 registered members with varying borrowing activity
+Demo issues 12 books and returns 4, demonstrating full operation lifecycle
+
+STATUS: Production-ready demonstration system with sample data and error handling
