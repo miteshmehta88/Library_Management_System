@@ -1,1 +1,144 @@
-# Library_Management_System
+# Library Management System
+
+A comprehensive Python-based library management system that allows users to manage books, members, and borrowing operations in a library.
+
+## Project Overview
+
+This project implements a complete library management system with the following core features:
+- Book inventory management
+- Member registration and management
+- Book borrowing and return operations
+- Book search functionality
+- Availability tracking
+- Genre-based book filtering and statistics
+
+## Project Structure
+
+```
+Library_Management_System/
+├── book.py              # Book class definition
+├── member.py            # Member class definition
+├── library.py           # Library class definition
+├── main.py              # Main application and demonstrations
+└── README.md            # Project documentation
+```
+
+## Classes
+
+### Book (`book.py`)
+
+Represents a book in the library with the following attributes and methods:
+
+**Attributes:**
+- `book_id` (int): Unique identifier for the book
+- `title` (str): Title of the book
+- `author` (str): Author of the book
+- `genre` (str): Genre/category of the book
+- `is_available` (bool): Availability status (True if available, False if borrowed)
+
+**Methods:**
+- `__init__(book_id, title, author, genre)`: Initializes a Book with ID, title, author, and genre; marks it as available by default
+- `borrow()`: Marks the book as borrowed if it's available; returns True if successful, False otherwise
+- `return_book()`: Marks the book as available when it is returned to the library
+- `__str__()`: Returns a string representation of the book with its title, author, ID, and availability status
+
+### Member (`member.py`)
+
+Represents a library member with the following attributes and methods:
+
+**Attributes:**
+- `member_id` (int): Unique identifier for the member
+- `name` (str): Member's full name
+- `age` (int): Member's age
+- `contact_info` (str): Member's contact information (email/phone)
+- `borrowed_books` (list): List of books currently borrowed by the member
+
+**Methods:**
+- `__init__(member_id, name, age, contact_info)`: Initializes a Member with ID, name, age, contact info, and an empty borrowed books list
+- `borrow_book(book)`: Allows a member to borrow a book if they haven't reached the 5-book limit and the book is available
+- `return_book(book)`: Removes a book from the member's borrowed list and marks it as available in the library
+- `__str__()`: Returns a string representation of the member including their name, ID, and list of borrowed books
+
+### Library (`library.py`)
+
+Manages all books, members, and operations in the library with the following methods:
+
+**Attributes:**
+- `books` (list): List of all books in the library
+- `members` (list): List of all registered members
+
+**Methods:**
+- `__init__()`: Initializes the Library with empty lists for books and members
+- `add_book(book)`: Adds a single book to the library's collection
+- `add_books(*books)`: Adds multiple books to the library at once using variable arguments
+- `remove_book(book)`: Removes a specific book from the library if it exists
+- `add_member(member)`: Adds a single member to the library's member list
+- `add_members(*members)`: Adds multiple members to the library at once using variable arguments
+- `remove_member(member)`: Removes a specific member from the library's member list if they exist
+- `display_books()`: Displays all books currently in the library's collection
+- `display_members()`: Displays all registered members in the library
+- `issue_book(book, member)`: Issues a book to a member if the book is available; otherwise prints an error message
+- `return_book(book, member)`: Processes the return of a book from a member; validates that the member actually borrowed it
+- `available_books(genre=None)`: Returns a list of available books, optionally filtered by genre
+- `members_with_borrowed_books(members)`: Returns a list of members who have borrowed books from the library
+- `search_book(keyword)`: Searches for a book by title or author using a keyword (case-insensitive); returns the first match or None
+- `most_popular_genre_from_issued_books()`: Determines the most popular genre among currently issued (borrowed) books
+
+## Main Application (`main.py`)
+
+The main module provides a demonstration of the library management system with the following functions:
+
+- `create_sample_data_and_operations(library)`: Creates sample books and members, adds them to the library, issues books to members, and demonstrates return operations
+- `display_available_books(library)`: Displays all books currently available for borrowing in the library
+- `display_available_books_by_genre(library, genre)`: Displays all available books of a specific genre
+- `search_books_by_keyword(library, keyword)`: Searches for books by keyword and displays matching results based on title or author
+- `display_members_with_borrowed_books(library)`: Displays all members who have currently borrowed books from the library
+- `display_books_count_by_genre(library)`: Displays the total count of books in the library grouped by genre
+- `display_books_count_by_genre_by_issuance(library)`: Displays the count of currently issued (borrowed) books grouped by genre
+- `display_most_popular_genre_from_issued_books(library)`: Displays the most popular genre among all currently issued books
+- `main()`: Main entry point that orchestrates the entire library management system demonstration
+
+## Features
+
+1. **Book Management**: Add, remove, and search for books
+2. **Member Management**: Register and manage library members
+3. **Borrowing System**: Members can borrow up to 5 books at a time
+4. **Book Return**: Track book returns and update availability
+5. **Availability Tracking**: Monitor which books are available or borrowed
+6. **Genre Filtering**: Filter books by genre and view statistics
+7. **Search Functionality**: Find books by title or author name
+8. **Popular Genre Analysis**: Identify the most popular genre among borrowed books
+
+## Usage
+
+To run the library management system:
+
+```bash
+python main.py
+```
+
+This will execute the main demonstration which includes:
+- Creating 21 sample books across multiple genres
+- Creating 7 sample members
+- Issuing books to members
+- Returning books
+- Displaying available books
+- Filtering books by genre
+- Searching for books by keyword
+- Displaying member information and book statistics
+
+## Constraints
+
+- Each member can borrow a maximum of 5 books at a time
+- A book can only be borrowed if it is currently available
+- A member cannot return a book they did not borrow
+
+## Example Output
+
+The system displays formatted information about:
+- All books in the library with availability status
+- All registered members
+- Available books (all or filtered by genre)
+- Members with borrowed books
+- Book counts by genre
+- Most popular genres among borrowed books
