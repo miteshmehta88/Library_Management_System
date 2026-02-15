@@ -16,11 +16,18 @@ This project implements a complete library management system with the following 
 
 ```
 Library_Management_System/
-├── book.py              # Book class definition
-├── member.py            # Member class definition
-├── library.py           # Library class definition
-├── main.py              # Main application and demonstrations
-└── README.md            # Project documentation
+├── book.py                  # Book class definition
+├── member.py                # Member class definition
+├── library.py               # Library class definition
+├── main.py                  # Main application and demonstrations
+├── test_library.py          # Comprehensive unit test suite (47 tests)
+├── README.md                # Project documentation
+├── EXECUTION_OUTPUT.txt     # Captured output from main.py and test execution
+├── TECHNICAL_NOTES.txt      # Architecture and implementation details
+├── ERROR_HANDLING.txt       # Error handling strategy documentation
+├── LOGGING_SETUP.txt        # Logging configuration details
+├── TEST_SUMMARY.txt         # Detailed test descriptions
+└── PROJECT_INDEX.txt        # Master project reference
 ```
 
 ## Classes
@@ -97,6 +104,22 @@ The main module provides a demonstration of the library management system with t
 - `display_books_count_by_genre_by_issuance(library)`: Displays the count of currently issued (borrowed) books grouped by genre
 - `display_most_popular_genre_from_issued_books(library)`: Displays the most popular genre among all currently issued books
 - `main()`: Main entry point that orchestrates the entire library management system demonstration
+
+## Documentation Files
+
+### EXECUTION_OUTPUT.txt
+Contains captured output from both the main application and test suite execution:
+- **Main Application Output**: Complete demonstration showing all 21 books, 7 members, borrowing operations, returns, searches, and analytics
+- **Test Suite Output**: All 47 unit tests passing with execution time of 0.005 seconds
+- **Execution Summary**: Performance metrics, capabilities demonstrated, and error handling examples
+- **Purpose**: Provides proof of successful system execution and demonstrates all features in action
+
+### Other Documentation Files
+- **TECHNICAL_NOTES.txt**: Architecture overview, design patterns, implementation details, complexity analysis
+- **ERROR_HANDLING.txt**: Strategy for error handling with 11 try-except blocks and validation examples
+- **LOGGING_SETUP.txt**: Logging configuration with file and console handlers, log level settings
+- **TEST_SUMMARY.txt**: Detailed descriptions of all 47 unit tests across 4 test classes
+- **PROJECT_INDEX.txt**: Master reference document for the entire project
 
 ## Features
 
