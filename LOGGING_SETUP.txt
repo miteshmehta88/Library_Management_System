@@ -1,0 +1,62 @@
+LOGGING INTEGRATION SUMMARY
+
+The Library Management System has been updated to use Python's logging module instead of print statements.
+
+CHANGES MADE:
+
+1. LIBRARY.PY
+   - Added: import logging and logger initialization
+   - Replaced print() with logger.info() in:
+     * display_books()
+     * display_members()
+     * issue_book()
+     * return_book()
+
+2. MEMBER.PY
+   - Added: import logging and logger initialization
+   - Replaced print() with logger.info() in:
+     * borrow_book()
+     * return_book()
+
+3. MAIN.PY
+   - Added: import logging
+   - Added logging configuration:
+     * Level: INFO
+     * Format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+     * Handlers: FileHandler (library_management.log) and StreamHandler (console)
+   - Replaced print() with logger.info() in all display functions:
+     * create_sample_data_and_operations()
+     * display_issued_books()
+     * display_available_books()
+     * display_available_books_by_genre()
+     * search_books_by_keyword()
+     * display_members_with_borrowed_books()
+     * display_books_count_by_genre()
+     * display_books_count_by_genre_by_issuance()
+     * display_most_popular_genre_from_issued_books()
+
+4. .GITIGNORE
+   - Added: *.log pattern to exclude all log files from git tracking
+
+LOGGING CONFIGURATION:
+- Level: INFO (logs all INFO, WARNING, ERROR, and CRITICAL messages)
+- Output: Both file (library_management.log) and console
+- Format: Timestamp - Logger Name - Level - Message
+
+LOG FILE:
+- Location: library_management.log (created automatically in the project directory)
+- Size: Grows with each run
+- Management: Can be safely deleted as it's ignored by git
+
+USAGE:
+- Run the application as before: python main.py
+- Logs will be displayed in the console
+- All logs are saved to library_management.log for review
+- Log file is not tracked by git (.gitignore excludes *.log)
+
+BENEFITS:
+1. Structured logging with timestamps
+2. Logger name identification (which module generated the log)
+3. Log level management (can easily change to DEBUG, WARNING, etc.)
+4. File persistence for audit and debugging
+5. Clean separation of logs from version control

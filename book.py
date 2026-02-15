@@ -2,11 +2,25 @@
 class Book:
     # Initializes a Book with ID, title, author, and genre; marks it as available by default
     def __init__(self, book_id, title, author, genre):  
-        self.book_id = book_id
-        self.title = title
-        self.author = author
-        self.genre = genre 
-        self.is_available = True
+        try:
+            if not isinstance(book_id, int) or book_id <= 0:
+                raise ValueError("book_id must be a positive integer")
+            if not isinstance(title, str) or not title.strip():
+                raise ValueError("title must be a non-empty string")
+            if not isinstance(author, str) or not author.strip():
+                raise ValueError("author must be a non-empty string")
+            if not isinstance(genre, str) or not genre.strip():
+                raise ValueError("genre must be a non-empty string")
+            
+            self.book_id = book_id
+            self.title = title
+            self.author = author
+            self.genre = genre 
+            self.is_available = True
+        except ValueError as e:
+            raise ValueError(f"Error creating Book: {str(e)}")
+        except Exception as e:
+            raise Exception(f"Unexpected error creating Book: {str(e)}")
 
     # Marks the book as borrowed if it's available; returns True if successful, False otherwise
     def borrow(self):

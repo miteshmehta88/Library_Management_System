@@ -1,8 +1,27 @@
-
+import logging
 from matplotlib.style import library
 from library import Library
 from book import Book
 from member import Member
+
+# Configure logging to log messages to both a file and the console with appropriate formatting and error handling
+try:
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.FileHandler('library_management.log'),
+            logging.StreamHandler()
+        ]
+    )
+except IOError as e:
+    print(f"Error configuring logging: {str(e)}")
+    raise
+except Exception as e:
+    print(f"Unexpected error during logging configuration: {str(e)}")
+    raise
+
+logger = logging.getLogger(__name__)
 
 # Creates sample books and members, adds them to the library, issues books to members, and demonstrates return operations
 def create_sample_data_and_operations(library):
@@ -44,7 +63,7 @@ def create_sample_data_and_operations(library):
     library.display_members()
 
     # Issue books to members and display the updated member information
-    print("\n================== Issuing Books ==================")
+    logger.info("\n================== Issuing Books ==================")
     library.issue_book(book1, member1)
     library.issue_book(book2, member1)
     library.issue_book(book3, member2)
@@ -63,7 +82,7 @@ def create_sample_data_and_operations(library):
     library.issue_book(book3, member1)
 
     # Return books from members
-    print("\n================== Returning Books ==================")
+    logger.info("\n================== Returning Books ==================")
     library.return_book(book1, member1)
     library.return_book(book3, member2)
     library.return_book(book5, member4)
@@ -75,7 +94,7 @@ def create_sample_data_and_operations(library):
 
 # Displays all books currently issued (borrowed) in the library
 def display_issued_books(library):
-    print("\n================== Books currently issued (borrowed) in the library ==================")
+    print("\n================== Books currently issued (borrowed) in the library ===================")
     issued_books = library.issued_books()
     if issued_books:
         for book in issued_books:
@@ -155,35 +174,42 @@ def display_most_popular_genre_from_issued_books(library):
 
 # Main entry point that orchestrates the entire library management system demonstration
 def main():
-    # Create library instance
-    library = Library()
+    try:
+        # Create library instance
+        library = Library()
+        logger.info("Library Management System started")
+        
+        create_sample_data_and_operations(library)
 
-    create_sample_data_and_operations(library)
+        # Display members with borrowed books
+        display_members_with_borrowed_books(library)
 
-    # Display members with borrowed books
-    display_members_with_borrowed_books(library)
+        # Display issued and available books
+        display_issued_books(library)
+        display_available_books(library)
 
-    # Display issued and available books
-    display_issued_books(library)
-    display_available_books(library)
+        # Display available books by genre
+        display_available_books_by_genre(library, genre="Fiction")
+        display_available_books_by_genre(library, genre="Dystopian")
 
-    # Display available books by genre
-    display_available_books_by_genre(library, genre="Fiction")
-    display_available_books_by_genre(library, genre="Dystopian")
+        # Search for books by keyword in title or author
+        search_books_by_keyword(library, keyword="the")
+        search_books_by_keyword(library, keyword="tolkien")
+        search_books_by_keyword(library, keyword="kill")
+        
+        # Display count of books by genre
+        display_books_count_by_genre(library)
 
-    # Search for books by keyword in title or author
-    search_books_by_keyword(library, keyword="the")
-    search_books_by_keyword(library, keyword="tolkien")
-    search_books_by_keyword(library, keyword="kill")
-    
-    # Display count of books by genre
-    display_books_count_by_genre(library)
+        # Display count of issued books by genre
+        display_books_count_by_genre_by_issuance(library)
 
-    # Display count of issued books by genre
-    display_books_count_by_genre_by_issuance(library)
-
-    # Display the most popular genre among issued books
-    display_most_popular_genre_from_issued_books(library)
+        # Display the most popular genre among issued books
+        display_most_popular_genre_from_issued_books(library)
+        
+        logger.info("Library Management System completed successfully")
+    except Exception as e:
+        logger.error(f"Critical error in main: {str(e)}", exc_info=True)
+        raise
 
 if __name__ == "__main__":
     main()

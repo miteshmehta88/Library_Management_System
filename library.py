@@ -1,5 +1,8 @@
+import logging
 from member import Member
 from book import Book
+
+logger = logging.getLogger(__name__)
 
 class Library:
     # Initializes the Library with empty lists for books and members
@@ -9,7 +12,15 @@ class Library:
 
     # Adds a single book to the library's collection
     def add_book(self, book):
-        self.books.append(book)
+        try:
+            if not hasattr(book, 'book_id'):
+                raise TypeError("Invalid book object: missing book_id attribute")
+            self.books.append(book)
+            logger.debug(f"Book '{book.title}' added to library")
+        except TypeError as e:
+            logger.error(f"Error adding book: {str(e)}")
+        except Exception as e:
+            logger.error(f"Unexpected error adding book: {str(e)}")
 
     # Adds multiple books to the library at once using variable arguments
     def add_books(self, *books):
@@ -22,7 +33,15 @@ class Library:
 
     # Adds a single member to the library's member list
     def add_member(self, member):
-        self.members.append(member)
+        try:
+            if not hasattr(member, 'member_id'):
+                raise TypeError("Invalid member object: missing member_id attribute")
+            self.members.append(member)
+            logger.debug(f"Member '{member.name}' added to library")
+        except TypeError as e:
+            logger.error(f"Error adding member: {str(e)}")
+        except Exception as e:
+            logger.error(f"Unexpected error adding member: {str(e)}")
     
     # Adds multiple members to the library at once using variable arguments
     def add_members(self, *members):
@@ -35,29 +54,43 @@ class Library:
 
     # Displays all books currently in the library's collection
     def display_books(self):
-        print("\n================== Books in the Library ==================")
+        logger.info("\n================== Books in the Library ==================")
         for book in self.books:
-            print(book)
+            logger.info(book)
 
     # Displays all registered members in the library
     def display_members(self):
-        print("\n==================== Library Members ====================")
+        logger.info("\n==================== Library Members ====================")
         for member in self.members:
-            print(member)
+            logger.info(member)
 
-    # Issues a book to a member if the book is available; otherwise prints an error message
+    # Issues a book to a member if the book is available; otherwise logs an error message
     def issue_book(self, book, member):
-        if book in self.books and book.is_available:
-            member.borrow_book(book)
-        else:
-            print(f"{book.title} is not available for borrowing.")
+        try:
+            if not hasattr(book, 'is_available') or not hasattr(member, 'borrow_book'):
+                raise TypeError("Invalid book or member object")
+            if book in self.books and book.is_available:
+                member.borrow_book(book)
+            else:
+                logger.info(f"{book.title} is not available for borrowing.")
+        except TypeError as e:
+            logger.error(f"Error issuing book: {str(e)}")
+        except Exception as e:
+            logger.error(f"Unexpected error during issue_book: {str(e)}")
 
     # Processes the return of a book from a member; validates that the member actually borrowed it
     def return_book(self, book, member):
-        if book in member.borrowed_books:
-            member.return_book(book)
-        else:
-            print(f"{member.name} cannot return {book.title}. Book not borrowed by this member.")  
+        try:
+            if not hasattr(member, 'borrowed_books') or not hasattr(member, 'name'):
+                raise TypeError("Invalid member object")
+            if book in member.borrowed_books:
+                member.return_book(book)
+            else:
+                logger.info(f"{member.name} cannot return {book.title}. Book not borrowed by this member.")
+        except TypeError as e:
+            logger.error(f"Error returning book: {str(e)}")
+        except Exception as e:
+            logger.error(f"Unexpected error during return_book: {str(e)}")  
 
     # Returns a list of available books, optionally filtered by genre
     def available_books(self, genre=None):
@@ -76,12 +109,21 @@ class Library:
     
     # Searches for a book by title or author using a keyword (case-insensitive); returns the first match or None
     def search_books(self, keyword):
-        matches = []
-        keyword = keyword.lower()
-        for book in self.books:
-            if keyword in book.title.lower() or keyword in book.author.lower():
-                matches.append(book)
-        return matches
+        try:
+            if not isinstance(keyword, str) or not keyword.strip():
+                raise ValueError("Keyword must be a non-empty string")
+            matches = []
+            keyword = keyword.lower()
+            for book in self.books:
+                if keyword in book.title.lower() or keyword in book.author.lower():
+                    matches.append(book)
+            return matches
+        except ValueError as e:
+            logger.error(f"Error searching books: {str(e)}")
+            return []
+        except Exception as e:
+            logger.error(f"Unexpected error during search_books: {str(e)}")
+            return []
 
     # Determines the count of books in the library grouped by genre; can optionally count only available books
     def books_count_by_genre(self, check_for_issuance=False):
