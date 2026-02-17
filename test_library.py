@@ -1,5 +1,6 @@
 import unittest
 import logging
+import time
 from datetime import datetime
 from book import Book
 from member import Member
@@ -673,6 +674,85 @@ class TestErrorHandling(unittest.TestCase):
         self.assertEqual(second_return_member.member_id, 2)
         # Second return time should be later than first
         self.assertGreater(second_return_time, first_return_time)
+
+
+class TestDatetimeDemo(unittest.TestCase):
+    """Integration-style tests ported from test_datetime_tracking.py to verify
+    datetime tracking behavior in typical workflows."""
+
+    def test_demo_borrow_records_borrow_details(self):
+        library = Library()
+        book1 = Book(1, "Test Book 1", "Author 1", "Fiction")
+        member1 = Member(1, "John Doe", 30, "john@example.com")
+
+        library.add_book(book1)
+        library.add_member(member1)
+
+        library.issue_book(book1, member1)
+
+        borrow_details = library.get_book_borrow_details(book1)
+        self.assertIsNotNone(borrow_details)
+        self.assertIn('borrowed_at', borrow_details)
+        self.assertIn('borrowed_by', borrow_details)
+        self.assertIn('borrowed_by_id', borrow_details)
+        self.assertEqual(borrow_details['borrowed_by'], 'John Doe')
+        self.assertEqual(borrow_details['borrowed_by_id'], 1)
+
+    def test_demo_return_records_return_details(self):
+        library = Library()
+        book1 = Book(1, "Test Book 1", "Author 1", "Fiction")
+        member1 = Member(1, "John Doe", 30, "john@example.com")
+
+        library.add_book(book1)
+        library.add_member(member1)
+
+        library.issue_book(book1, member1)
+        # small delay to ensure timestamps differ
+        time.sleep(0.1)
+        library.return_book(book1, member1)
+
+        return_details = library.get_book_return_details(book1)
+        self.assertIsNotNone(return_details)
+        self.assertIn('returned_at', return_details)
+        self.assertIn('returned_by', return_details)
+        self.assertIn('returned_by_id', return_details)
+        self.assertEqual(return_details['returned_by'], 'John Doe')
+        self.assertEqual(return_details['returned_by_id'], 1)
+
+    def test_demo_complete_history(self):
+        library = Library()
+        book1 = Book(1, "Test Book 1", "Author 1", "Fiction")
+        member1 = Member(1, "John Doe", 30, "john@example.com")
+
+        library.add_book(book1)
+        library.add_member(member1)
+
+        library.issue_book(book1, member1)
+        time.sleep(0.1)
+        library.return_book(book1, member1)
+
+        history = library.get_book_history(book1)
+        self.assertIsNotNone(history)
+        self.assertEqual(history['book_id'], 1)
+        self.assertEqual(history['title'], 'Test Book 1')
+        self.assertTrue(history['is_available'])
+        self.assertIsNotNone(history['return_details'])
+
+    def test_demo_currently_borrowed_book(self):
+        library = Library()
+        book2 = Book(2, "Test Book 2", "Author 2", "Fiction")
+        member2 = Member(2, "Jane Smith", 25, "jane@example.com")
+
+        library.add_book(book2)
+        library.add_member(member2)
+
+        library.issue_book(book2, member2)
+
+        history2 = library.get_book_history(book2)
+        self.assertIsNotNone(history2)
+        self.assertFalse(history2['is_available'])
+        self.assertIsNotNone(history2['borrow_details'])
+        self.assertEqual(history2['borrow_details']['borrowed_by'], 'Jane Smith')
 
 
 if __name__ == '__main__':
