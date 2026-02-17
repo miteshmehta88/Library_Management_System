@@ -30,6 +30,7 @@ class Member:
             raise Exception(f"Unexpected error creating Member: {str(e)}")
 
     # Allows a member to borrow a book if they haven't reached the max borrow limit and the book is available
+    # Passes member information to the book for datetime tracking
     def borrow_book(self, book):
         try:
             if not hasattr(book, 'is_available_to_borrow'):
@@ -37,7 +38,7 @@ class Member:
             if len(self.borrowed_books) < Member.MAX_BORROW_LIMIT:
                 if book.is_available_to_borrow():
                     self.borrowed_books.append(book)
-                    book.borrow()
+                    book.borrow(member=self)  # Pass member object for tracking
                     logger.info(f"{self.name} has borrowed {book.title}.")
                 else:
                     logger.info(f"{self.name} cannot borrow {book.title}. Book is not available.")
@@ -49,13 +50,14 @@ class Member:
             logger.error(f"Unexpected error during borrow_book: {str(e)}")
             
     # Removes a book from the member's borrowed list and marks it as available in the library
+    # Passes member information to the book for return datetime tracking
     def return_book(self, book):
         try:
             if not hasattr(book, 'return_book'):
                 raise AttributeError("Invalid book object: missing return_book method")
             if book in self.borrowed_books:
                 self.borrowed_books.remove(book)
-                book.return_book()
+                book.return_book(member=self)  # Pass member object for tracking
                 logger.info(f"{self.name} has returned {book.title}.")
             else:
                 logger.info(f"{self.name} cannot return {book.title}. Book not borrowed by this member.")

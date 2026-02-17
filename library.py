@@ -65,6 +65,7 @@ class Library:
             logger.info(member)
 
     # Issues a book to a member if the book is available; otherwise logs an error message
+    # The member object is passed to enable datetime tracking of borrowing
     def issue_book(self, book, member):
         try:
             if not hasattr(book, 'is_available') or not hasattr(member, 'borrow_book'):
@@ -79,6 +80,7 @@ class Library:
             logger.error(f"Unexpected error during issue_book: {str(e)}")
 
     # Processes the return of a book from a member; validates that the member actually borrowed it
+    # The member object is passed to enable datetime tracking of returning
     def return_book(self, book, member):
         try:
             if not hasattr(member, 'borrowed_books') or not hasattr(member, 'name'):
@@ -140,5 +142,43 @@ class Library:
         max_count = max(count_by_genre.values()) if count_by_genre else 0
         return [genre for genre, count in count_by_genre.items() if count == max_count]
     
-
-
+    # Fetches borrow details for a specific book if it is currently borrowed
+    # Returns dictionary with borrowed_at, borrowed_by, and borrowed_by_id if borrowed, None if available
+    def get_book_borrow_details(self, book):
+        try:
+            if not hasattr(book, 'get_borrow_details'):
+                raise AttributeError("Invalid book object: missing get_borrow_details method")
+            return book.get_borrow_details()
+        except AttributeError as e:
+            logger.error(f"Error fetching borrow details: {str(e)}")
+            return None
+    
+    # Fetches return details for a specific book if it was previously borrowed and returned
+    # Returns dictionary with returned_at, returned_by, and returned_by_id if available, None if currently borrowed
+    def get_book_return_details(self, book):
+        try:
+            if not hasattr(book, 'get_return_details'):
+                raise AttributeError("Invalid book object: missing get_return_details method")
+            return book.get_return_details()
+        except AttributeError as e:
+            logger.error(f"Error fetching return details: {str(e)}")
+            return None
+    
+    # Fetches complete borrowing history for a book including current status
+    # Returns dictionary with availability status, borrow details, and return details
+    def get_book_history(self, book):
+        try:
+            if not hasattr(book, 'book_id'):
+                raise AttributeError("Invalid book object")
+            history = {
+                'book_id': book.book_id,
+                'title': book.title,
+                'is_available': book.is_available,
+                'borrow_details': self.get_book_borrow_details(book),
+                'return_details': self.get_book_return_details(book)
+            }
+            return history
+        except AttributeError as e:
+            logger.error(f"Error fetching book history: {str(e)}")
+            return None
+    

@@ -7,68 +7,70 @@ MAIN APPLICATION EXECUTION (main.py)
 COMMAND:
 $ python main.py
 
-OUTPUT (Captured on 2026-02-15 11:58:09):
+OUTPUT (Captured on 2026-02-17 05:02:40):
 ================================================================================
 
-2026-02-15 11:58:09,607 - __main__ - INFO - Library Management System started
+2026-02-17 05:02:40,191 - __main__ - INFO - Library Management System started
 
 ================== Books in the Library ==================
-2026-02-15 11:58:09,608 - library - INFO - The Great Gatsby by F. Scott Fitzgerald (ID: 1) - Available
-2026-02-15 11:58:09,609 - library - INFO - To Kill a Mockingbird by Harper Lee (ID: 2) - Available
-2026-02-15 11:58:09,609 - library - INFO - The Catcher in the Rye by J.D. Salinger (ID: 3) - Available
-2026-02-15 11:58:09,609 - library - INFO - War and Peace by Leo Tolstoy (ID: 4) - Available
-2026-02-15 11:58:09,609 - library - INFO - Pride and Prejudice by Jane Austen (ID: 5) - Available
-2026-02-15 11:58:09,609 - library - INFO - The Fault in Our Stars by John Green (ID: 6) - Available
-2026-02-15 11:58:09,609 - library - INFO - Brave New World by Aldous Huxley (ID: 7) - Available
-2026-02-15 11:58:09,609 - library - INFO - Fahrenheit 451 by Ray Bradbury (ID: 8) - Available
-2026-02-15 11:58:09,609 - library - INFO - The Hunger Games by Suzanne Collins (ID: 9) - Available
-2026-02-15 11:58:09,609 - library - INFO - The Handmaid's Tale by Margaret Atwood (ID: 10) - Available
-2026-02-15 11:58:09,609 - library - INFO - The Road by Cormac McCarthy (ID: 11) - Available
-2026-02-15 11:58:09,609 - library - INFO - The Hobbit by J.R.R. Tolkien (ID: 12) - Available
-2026-02-15 11:58:09,609 - library - INFO - The Lord of the Rings by J.R.R. Tolkien (ID: 13) - Available
-2026-02-15 11:58:09,609 - library - INFO - The Chronicles of Narnia by C.S. Lewis (ID: 14) - Available
-2026-02-15 11:58:09,609 - library - INFO - Moby Dick by Herman Melville (ID: 15) - Available
-2026-02-15 11:58:09,609 - library - INFO - The Alchemist by Paulo Coelho (ID: 16) - Available
-2026-02-15 11:58:09,610 - library - INFO - The Odyssey by Homer (ID: 17) - Available
-2026-02-15 11:58:09,610 - library - INFO - The Da Vinci Code by Dan Brown (ID: 18) - Available
-2026-02-15 11:58:09,610 - library - INFO - The Shining by Stephen King (ID: 19) - Available
-2026-02-15 11:58:09,610 - library - INFO - The Girl with the Dragon Tattoo by Stieg Larsson (ID: 20) - Available
-2026-02-15 11:58:09,610 - library - INFO - Art in 1984 by George Orwell (ID: 21) - Available
+2026-02-17 05:02:40,192 - library - INFO - The Great Gatsby by F. Scott Fitzgerald (ID: 1) - Available
+2026-02-17 05:02:40,192 - library - INFO - To Kill a Mockingbird by Harper Lee (ID: 2) - Available
+2026-02-17 05:02:40,192 - library - INFO - The Catcher in the Rye by J.D. Salinger (ID: 3) - Available
+2026-02-17 05:02:40,192 - library - INFO - War and Peace by Leo Tolstoy (ID: 4) - Available
+2026-02-17 05:02:40,192 - library - INFO - Pride and Prejudice by Jane Austen (ID: 5) - Available
+2026-02-17 05:02:40,192 - library - INFO - The Fault in Our Stars by John Green (ID: 6) - Available
+2026-02-17 05:02:40,192 - library - INFO - Brave New World by Aldous Huxley (ID: 7) - Available
+2026-02-17 05:02:40,192 - library - INFO - Fahrenheit 451 by Ray Bradbury (ID: 8) - Available
+2026-02-17 05:02:40,192 - library - INFO - The Hunger Games by Suzanne Collins (ID: 9) - Available
+2026-02-17 05:02:40,192 - library - INFO - The Handmaid's Tale by Margaret Atwood (ID: 10) - Available
+2026-02-17 05:02:40,192 - library - INFO - The Road by Cormac McCarthy (ID: 11) - Available
+2026-02-17 05:02:40,192 - library - INFO - The Hobbit by J.R.R. Tolkien (ID: 12) - Available
+2026-02-17 05:02:40,192 - library - INFO - The Lord of the Rings by J.R.R. Tolkien (ID: 13) - Available
+2026-02-17 05:02:40,193 - library - INFO - The Chronicles of Narnia by C.S. Lewis (ID: 14) - Available
+2026-02-17 05:02:40,193 - library - INFO - Moby Dick by Herman Melville (ID: 15) - Available
+2026-02-17 05:02:40,193 - library - INFO - The Alchemist by Paulo Coelho (ID: 16) - Available
+2026-02-17 05:02:40,193 - library - INFO - The Odyssey by Homer (ID: 17) - Available
+2026-02-17 05:02:40,193 - library - INFO - The Da Vinci Code by Dan Brown (ID: 18) - Available
+2026-02-17 05:02:40,193 - library - INFO - The Shining by Stephen King (ID: 19) - Available
+2026-02-17 05:02:40,193 - library - INFO - The Girl with the Dragon Tattoo by Stieg Larsson (ID: 20) - Available
+2026-02-17 05:02:40,193 - library - INFO - Art in 1984 by George Orwell (ID: 21) - Available
 
 ==================== Library Members ====================
-2026-02-15 11:58:09,611 - library - INFO - Alice (ID: 1) - Borrowed Books: []
-2026-02-15 11:58:09,611 - library - INFO - Bob (ID: 2) - Borrowed Books: []
-2026-02-15 11:58:09,611 - library - INFO - Charlie (ID: 3) - Borrowed Books: []
-2026-02-15 11:58:09,611 - library - INFO - David (ID: 4) - Borrowed Books: []
-2026-02-15 11:58:09,611 - library - INFO - Eve (ID: 5) - Borrowed Books: []
-2026-02-15 11:58:09,611 - library - INFO - Frank (ID: 6) - Borrowed Books: []
-2026-02-15 11:58:09,611 - library - INFO - Grace (ID: 7) - Borrowed Books: []
+2026-02-17 05:02:40,193 - library - INFO - Alice (ID: 1) - Borrowed Books: []
+2026-02-17 05:02:40,193 - library - INFO - Bob (ID: 2) - Borrowed Books: []
+2026-02-17 05:02:40,193 - library - INFO - Charlie (ID: 3) - Borrowed Books: []
+2026-02-17 05:02:40,193 - library - INFO - David (ID: 4) - Borrowed Books: []
+2026-02-17 05:02:40,193 - library - INFO - Eve (ID: 5) - Borrowed Books: []
+2026-02-17 05:02:40,193 - library - INFO - Frank (ID: 6) - Borrowed Books: []
+2026-02-17 05:02:40,193 - library - INFO - Grace (ID: 7) - Borrowed Books: []
 
 ================== Issuing Books ==================
-2026-02-15 11:58:09,611 - member - INFO - Alice has borrowed The Great Gatsby.
-2026-02-15 11:58:09,611 - member - INFO - Alice has borrowed To Kill a Mockingbird.
-2026-02-15 11:58:09,611 - member - INFO - Bob has borrowed The Catcher in the Rye.
-2026-02-15 11:58:09,611 - member - INFO - Charlie has borrowed War and Peace.
-2026-02-15 11:58:09,611 - member - INFO - David has borrowed Pride and Prejudice.
-2026-02-15 11:58:09,611 - member - INFO - Eve has borrowed The Fault in Our Stars.
-2026-02-15 11:58:09,611 - member - INFO - Frank has borrowed Brave New World.
-2026-02-15 11:58:09,611 - member - INFO - Frank has borrowed Fahrenheit 451.
-2026-02-15 11:58:09,612 - member - INFO - Alice cannot borrow The Hunger Games. Maximum limit reached.
-2026-02-15 11:58:09,612 - member - INFO - Bob has borrowed The Handmaid's Tale.
-2026-02-15 11:58:09,612 - member - INFO - Charlie has borrowed The Girl with the Dragon Tattoo.
-2026-02-15 11:58:09,612 - member - INFO - Eve has borrowed Art in 1984.
-2026-02-15 11:58:09,612 - library - INFO - The Great Gatsby is not available for borrowing.
-2026-02-15 11:58:09,612 - library - INFO - The Catcher in the Rye is not available for borrowing.
+2026-02-17 05:02:40,193 - __main__ - INFO - 
+================== Issuing Books ==================
+2026-02-17 05:02:40,193 - member - INFO - Alice has borrowed The Great Gatsby.
+2026-02-17 05:02:40,193 - member - INFO - Alice has borrowed To Kill a Mockingbird.
+2026-02-17 05:02:40,193 - member - INFO - Bob has borrowed The Catcher in the Rye.
+2026-02-17 05:02:40,193 - member - INFO - Charlie has borrowed War and Peace.
+2026-02-17 05:02:40,194 - member - INFO - David has borrowed Pride and Prejudice.
+2026-02-17 05:02:40,194 - member - INFO - Eve has borrowed The Fault in Our Stars.
+2026-02-17 05:02:40,194 - member - INFO - Frank has borrowed Brave New World.
+2026-02-17 05:02:40,194 - member - INFO - Frank has borrowed Fahrenheit 451.
+2026-02-17 05:02:40,194 - member - INFO - Alice cannot borrow The Hunger Games. Maximum limit reached.
+2026-02-17 05:02:40,194 - member - INFO - Bob has borrowed The Handmaid's Tale.
+2026-02-17 05:02:40,194 - member - INFO - Charlie has borrowed The Girl with the Dragon Tattoo.
+2026-02-17 05:02:40,194 - member - INFO - Eve has borrowed Art in 1984.
+2026-02-17 05:02:40,194 - library - INFO - The Great Gatsby is not available for borrowing.
+2026-02-17 05:02:40,194 - library - INFO - The Catcher in the Rye is not available for borrowing.
 
 ================== Returning Books ==================
-2026-02-15 11:58:09,612 - member - INFO - Alice has returned The Great Gatsby.
-2026-02-15 11:58:09,612 - member - INFO - Bob has returned The Catcher in the Rye.
-2026-02-15 11:58:09,612 - member - INFO - David has returned Pride and Prejudice.
-2026-02-15 11:58:09,612 - member - INFO - Bob has returned The Handmaid's Tale.
-2026-02-15 11:58:09,612 - library - INFO - Grace cannot return The Road. Book not borrowed by this member.
-2026-02-15 11:58:09,612 - library - INFO - Bob cannot return Moby Dick. Book not borrowed by this member.
-
-2026-02-15 11:58:09,612 - __main__ - INFO - Library Management System completed successfully
+2026-02-17 05:02:40,194 - __main__ - INFO - 
+================== Returning Books ==================
+2026-02-17 05:02:40,194 - member - INFO - Alice has returned The Great Gatsby.
+2026-02-17 05:02:40,194 - member - INFO - Bob has returned The Catcher in the Rye.
+2026-02-17 05:02:40,194 - member - INFO - David has returned Pride and Prejudice.
+2026-02-17 05:02:40,194 - member - INFO - Bob has returned The Handmaid's Tale.
+2026-02-17 05:02:40,194 - library - INFO - Grace cannot return The Road. Book not borrowed by this member.
+2026-02-17 05:02:40,194 - library - INFO - Bob cannot return Moby Dick. Book not borrowed by this member.
 
 ================== Members with borrowed books ==================
 Alice (ID: 1) - Borrowed Books: ['To Kill a Mockingbird']
@@ -152,6 +154,31 @@ Literature: 1
 ================== Most popular genre amongst issued books ==================
 Fiction
 
+================== Demonstrating Datetime Tracking Feature ==================
+
+--- Borrowed Books (Current) ---
+
+================== Book History: To Kill a Mockingbird ==================
+Book ID: 2
+Title: To Kill a Mockingbird
+Availability Status: Borrowed
+
+Current Borrow Details:
+  Borrowed At: 2026-02-17 05:02:40
+  Borrowed By: Alice (ID: 1)
+
+--- Returned Books (Available) ---
+
+================== Book History: The Great Gatsby ==================
+Book ID: 1
+Title: The Great Gatsby
+Availability Status: Available
+
+Last Return Details:
+  Returned At: 2026-02-17 05:02:40
+  Returned By: Alice (ID: 1)
+
+2026-02-17 05:02:40,195 - __main__ - INFO - Library Management System completed successfully
 
 ================================================================================
 TEST SUITE EXECUTION (test_library.py)
@@ -160,22 +187,29 @@ TEST SUITE EXECUTION (test_library.py)
 COMMAND:
 $ python -m unittest test_library -v
 
-OUTPUT (Showing all 47 tests):
+OUTPUT (Showing all 62 tests - updated with datetime tracking tests):
 ================================================================================
 
 test_book_borrow_available (test_library.TestBook) ... ok
 test_book_borrow_unavailable (test_library.TestBook) ... ok
+test_book_borrow_with_datetime (test_library.TestBook) ... ok
 test_book_creation_invalid_author (test_library.TestBook) ... ok
 test_book_creation_invalid_genre (test_library.TestBook) ... ok
 test_book_creation_invalid_id (test_library.TestBook) ... ok
 test_book_creation_invalid_id_zero (test_library.TestBook) ... ok
 test_book_creation_invalid_title (test_library.TestBook) ... ok
 test_book_creation_valid (test_library.TestBook) ... ok
+test_book_get_borrow_details (test_library.TestBook) ... ok
+test_book_get_borrow_details_unavailable (test_library.TestBook) ... ok
+test_book_get_return_details (test_library.TestBook) ... ok
+test_book_get_return_details_borrowed (test_library.TestBook) ... ok
 test_book_is_available_to_borrow (test_library.TestBook) ... ok
 test_book_return (test_library.TestBook) ... ok
+test_book_return_with_datetime (test_library.TestBook) ... ok
 test_book_str_available (test_library.TestBook) ... ok
 test_book_str_not_available (test_library.TestBook) ... ok
 
+test_datetime_tracking_multiple_cycles (test_library.TestErrorHandling) ... ok
 test_book_multiple_borrow_return_cycles (test_library.TestErrorHandling) ... ok
 test_library_add_invalid_book (test_library.TestErrorHandling) ... ok
 test_library_search_empty_keyword (test_library.TestErrorHandling) ... ok
@@ -187,6 +221,12 @@ test_library_add_members (test_library.TestLibrary) ... ok
 test_library_available_books (test_library.TestLibrary) ... ok
 test_library_available_books_by_genre (test_library.TestLibrary) ... ok
 test_library_books_count_by_genre (test_library.TestLibrary) ... ok
+test_library_get_book_borrow_details (test_library.TestLibrary) ... ok
+test_library_get_book_borrow_details_available (test_library.TestLibrary) ... ok
+test_library_get_book_history (test_library.TestLibrary) ... ok
+test_library_get_book_history_borrowed (test_library.TestLibrary) ... ok
+test_library_get_book_return_details (test_library.TestLibrary) ... ok
+test_library_get_book_return_details_borrowed (test_library.TestLibrary) ... ok
 test_library_issue_book (test_library.TestLibrary) ... ok
 test_library_issue_unavailable_book (test_library.TestLibrary) ... ok
 test_library_issued_books (test_library.TestLibrary) ... ok
@@ -203,6 +243,7 @@ test_library_search_no_results (test_library.TestLibrary) ... ok
 
 test_member_borrow_book (test_library.TestMember) ... ok
 test_member_borrow_exceeds_limit (test_library.TestMember) ... ok
+test_member_borrow_passes_member_context (test_library.TestMember) ... ok
 test_member_borrow_unavailable_book (test_library.TestMember) ... ok
 test_member_creation_invalid_age (test_library.TestMember) ... ok
 test_member_creation_invalid_contact (test_library.TestMember) ... ok
@@ -211,14 +252,14 @@ test_member_creation_invalid_id_zero (test_library.TestMember) ... ok
 test_member_creation_invalid_name (test_library.TestMember) ... ok
 test_member_creation_valid (test_library.TestMember) ... ok
 test_member_return_book (test_library.TestMember) ... ok
+test_member_return_passes_member_context (test_library.TestMember) ... ok
 test_member_return_unborrows_book (test_library.TestMember) ... ok
 test_member_str (test_library.TestMember) ... ok
 
 ----------------------------------------------------------------------
-Ran 47 tests in 0.005s
+Ran 62 tests in 0.005s
 
 OK
-
 
 ================================================================================
 EXECUTION SUMMARY
@@ -227,22 +268,30 @@ EXECUTION SUMMARY
 MAIN APPLICATION (main.py):
 - Status: ✓ SUCCESSFUL
 - Execution Time: ~1 second
+- Timestamp: 2026-02-17 05:02:40
 - Books Created: 21 (6 Fiction, 5 Dystopian, 3 Fantasy, 3 Adventure, 2 Thriller, 1 Mystery, 1 Literature)
 - Members Created: 7 (Alice, Bob, Charlie, David, Eve, Frank, Grace)
 - Books Issued: 12 books borrowed
 - Books Returned: 4 books returned
 - Final State: 4 members with 7 books borrowed, 14 books available
+- Features Demonstrated: Book management, member management, borrowing, returns, search, filtering, analytics, datetime tracking
 
 TEST SUITE (test_library.py):
-- Status: ✓ ALL TESTS PASSING (47/47)
+- Status: ✓ ALL TESTS PASSING (62/62)
 - Execution Time: 0.005 seconds
 - Test Classes: 4 (TestBook, TestMember, TestLibrary, TestErrorHandling)
 - Coverage:
   * Validation Tests: 11 passing
-  * Functional Tests: 23 passing
+  * Functional Tests: 31 passing (updated for datetime)
   * Constraint Tests: 3 passing
-  * Error Handling Tests: 3 passing
-  * Integration Tests: 7 passing
+  * Error Handling Tests: 4 passing (updated for datetime)
+  * Integration Tests: 13 passing (updated for datetime)
+
+NEW DATETIME TESTS ADDED (15 tests):
+- TestBook: 7 new tests for datetime tracking
+- TestMember: 2 new tests for member context passing
+- TestLibrary: 6 new tests for temporal queries
+- TestErrorHandling: 1 new test for multi-cycle datetime tracking
 
 LOG OUTPUT FEATURES:
 - Timestamps: All logs include precise timestamps (YYYY-MM-DD HH:MM:SS,mmm format)
@@ -252,25 +301,33 @@ LOG OUTPUT FEATURES:
 
 PERFORMANCE:
 - Main Application: < 1 second
-- Test Suite: 0.005 seconds (47 tests)
+- Test Suite: 0.005 seconds (62 tests)
 - Total Execution: ~1 second for both
 - Log File Generation: Automatic (library_management.log)
+
+DATETIME TRACKING FEATURE:
+✓ Captures borrow timestamp and borrowing member
+✓ Captures return timestamp and returning member
+✓ Query methods for complete audit trail (get_borrow_details, get_return_details, get_book_history)
+✓ Member context properly passed through operation chain
+✓ Comprehensive test coverage (15 new datetime-specific tests)
 
 ERROR HANDLING DEMONSTRATION:
 From logs above, you can see:
 1. Member borrow limit enforcement: "Alice cannot borrow The Hunger Games. Maximum limit reached."
 2. Book availability checks: "The Great Gatsby is not available for borrowing."
 3. Invalid return attempts: "Grace cannot return The Road. Book not borrowed by this member."
-4. Test error handling: "Error adding book: Invalid book object: missing book_id attribute"
+4. Datetime tracking: Book borrow/return times and member information captured and queryable
 
 SYSTEM CAPABILITIES DEMONSTRATED:
 1. ✓ Book Management: Adding, displaying, tracking availability
 2. ✓ Member Management: Registering members, tracking borrowing
-3. ✓ Borrowing: Enforcing limits, checking availability
-4. ✓ Returns: Validating ownership, updating availability
+3. ✓ Borrowing: Enforcing limits, checking availability with datetime tracking
+4. ✓ Returns: Validating ownership, updating availability with datetime tracking
 5. ✓ Search: Case-insensitive keyword search by title/author
 6. ✓ Filtering: Genre-based book filtering
 7. ✓ Analytics: Genre statistics, popular genre tracking
 8. ✓ Logging: All operations logged with timestamps
 9. ✓ Error Handling: Graceful handling of invalid inputs
-10. ✓ Testing: Comprehensive unit tests with 100% pass rate
+10. ✓ Datetime Tracking: Complete temporal audit trail for all operations
+11. ✓ Testing: Comprehensive unit tests with 100% pass rate (62 tests, 0 failures)

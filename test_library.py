@@ -1,5 +1,6 @@
 import unittest
 import logging
+from datetime import datetime
 from book import Book
 from member import Member
 from library import Library
@@ -99,6 +100,94 @@ class TestBook(unittest.TestCase):
         self.valid_book.borrow()
         book_str = str(self.valid_book)
         self.assertIn("Not Available", book_str)
+
+    # Test: Datetime tracking when book is borrowed
+    def test_book_borrow_with_datetime(self):
+        """Test that borrowing a book records timestamp and member"""
+        member = Member(1, "John Doe", 25, "john@example.com")
+        before_borrow = datetime.now()
+        self.valid_book.borrow(member=member)
+        after_borrow = datetime.now()
+        
+        # Verify datetime was recorded
+        self.assertIsNotNone(self.valid_book.borrowed_at)
+        self.assertGreaterEqual(self.valid_book.borrowed_at, before_borrow)
+        self.assertLessEqual(self.valid_book.borrowed_at, after_borrow)
+        
+        # Verify member was recorded
+        self.assertIsNotNone(self.valid_book.borrowed_by)
+        self.assertEqual(self.valid_book.borrowed_by, member)
+
+    # Test: Datetime tracking when book is returned
+    def test_book_return_with_datetime(self):
+        """Test that returning a book records timestamp and member"""
+        member = Member(1, "John Doe", 25, "john@example.com")
+        self.valid_book.borrow(member=member)
+        
+        before_return = datetime.now()
+        self.valid_book.return_book(member=member)
+        after_return = datetime.now()
+        
+        # Verify datetime was recorded
+        self.assertIsNotNone(self.valid_book.returned_at)
+        self.assertGreaterEqual(self.valid_book.returned_at, before_return)
+        self.assertLessEqual(self.valid_book.returned_at, after_return)
+        
+        # Verify member was recorded
+        self.assertIsNotNone(self.valid_book.returned_by)
+        self.assertEqual(self.valid_book.returned_by, member)
+
+    # Test: Get borrow details for currently borrowed book
+    def test_book_get_borrow_details(self):
+        """Test getting borrow details for a borrowed book"""
+        member = Member(1, "John Doe", 25, "john@example.com")
+        self.valid_book.borrow(member=member)
+        
+        borrow_details = self.valid_book.get_borrow_details()
+        
+        # Verify borrow details dictionary has required keys
+        self.assertIsNotNone(borrow_details)
+        self.assertIn('borrowed_at', borrow_details)
+        self.assertIn('borrowed_by', borrow_details)
+        self.assertIn('borrowed_by_id', borrow_details)
+        
+        # Verify correct values
+        self.assertEqual(borrow_details['borrowed_by'], 'John Doe')
+        self.assertEqual(borrow_details['borrowed_by_id'], 1)
+
+    # Test: Get borrow details returns None for available book
+    def test_book_get_borrow_details_unavailable(self):
+        """Test that get_borrow_details returns None for available book"""
+        borrow_details = self.valid_book.get_borrow_details()
+        self.assertIsNone(borrow_details)
+
+    # Test: Get return details for returned book
+    def test_book_get_return_details(self):
+        """Test getting return details for a returned book"""
+        member = Member(1, "John Doe", 25, "john@example.com")
+        self.valid_book.borrow(member=member)
+        self.valid_book.return_book(member=member)
+        
+        return_details = self.valid_book.get_return_details()
+        
+        # Verify return details dictionary has required keys
+        self.assertIsNotNone(return_details)
+        self.assertIn('returned_at', return_details)
+        self.assertIn('returned_by', return_details)
+        self.assertIn('returned_by_id', return_details)
+        
+        # Verify correct values
+        self.assertEqual(return_details['returned_by'], 'John Doe')
+        self.assertEqual(return_details['returned_by_id'], 1)
+
+    # Test: Get return details returns None for currently borrowed book
+    def test_book_get_return_details_borrowed(self):
+        """Test that get_return_details returns None for borrowed book"""
+        member = Member(1, "John Doe", 25, "john@example.com")
+        self.valid_book.borrow(member=member)
+        
+        return_details = self.valid_book.get_return_details()
+        self.assertIsNone(return_details)
 
 
 class TestMember(unittest.TestCase):
@@ -202,6 +291,27 @@ class TestMember(unittest.TestCase):
         self.assertIn("John Doe", member_str)
         self.assertIn("ID: 1", member_str)
         self.assertIn("Borrowed Books", member_str)
+
+    # Test: Member borrow passes member context to book
+    def test_member_borrow_passes_member_context(self):
+        """Test that member.borrow_book passes member context to book"""
+        self.member = Member(2, "Jane Doe", 30, "jane@example.com")
+        self.member.borrow_book(self.book1)
+        
+        # Verify book has member context
+        self.assertEqual(self.book1.borrowed_by, self.member)
+        self.assertIsNotNone(self.book1.borrowed_at)
+
+    # Test: Member return passes member context to book
+    def test_member_return_passes_member_context(self):
+        """Test that member.return_book passes member context to book"""
+        self.member = Member(2, "Jane Doe", 30, "jane@example.com")
+        self.member.borrow_book(self.book1)
+        self.member.return_book(self.book1)
+        
+        # Verify book has member return context
+        self.assertEqual(self.book1.returned_by, self.member)
+        self.assertIsNotNone(self.book1.returned_at)
 
 
 class TestLibrary(unittest.TestCase):
@@ -400,6 +510,98 @@ class TestLibrary(unittest.TestCase):
         popular_genres = self.library.most_popular_genre_from_issued_books()
         self.assertEqual(len(popular_genres), 2)  # Fiction and Dystopian tied at 1
 
+    # Test: Library can get current borrow details for a book
+    def test_library_get_book_borrow_details(self):
+        """Test that library can retrieve current borrow details"""
+        self.library.add_book(self.book1)
+        self.library.add_member(self.member1)
+        self.library.issue_book(self.book1, self.member1)
+        
+        borrow_details = self.library.get_book_borrow_details(self.book1)
+        
+        # Verify borrow details exist and contain correct information
+        self.assertIsNotNone(borrow_details)
+        self.assertIn('borrowed_at', borrow_details)
+        self.assertIn('borrowed_by', borrow_details)
+        self.assertIn('borrowed_by_id', borrow_details)
+        self.assertEqual(borrow_details['borrowed_by'], 'Alice')
+        self.assertEqual(borrow_details['borrowed_by_id'], 1)
+
+    # Test: Library get borrow details returns None for available book
+    def test_library_get_book_borrow_details_available(self):
+        """Test that get_book_borrow_details returns None for available book"""
+        self.library.add_book(self.book1)
+        
+        borrow_details = self.library.get_book_borrow_details(self.book1)
+        self.assertIsNone(borrow_details)
+
+    # Test: Library can get return details for a returned book
+    def test_library_get_book_return_details(self):
+        """Test that library can retrieve return details"""
+        self.library.add_book(self.book1)
+        self.library.add_member(self.member1)
+        self.library.issue_book(self.book1, self.member1)
+        self.library.return_book(self.book1, self.member1)
+        
+        return_details = self.library.get_book_return_details(self.book1)
+        
+        # Verify return details exist and contain correct information
+        self.assertIsNotNone(return_details)
+        self.assertIn('returned_at', return_details)
+        self.assertIn('returned_by', return_details)
+        self.assertIn('returned_by_id', return_details)
+        self.assertEqual(return_details['returned_by'], 'Alice')
+        self.assertEqual(return_details['returned_by_id'], 1)
+
+    # Test: Library get return details returns None for borrowed book
+    def test_library_get_book_return_details_borrowed(self):
+        """Test that get_book_return_details returns None for borrowed book"""
+        self.library.add_book(self.book1)
+        self.library.add_member(self.member1)
+        self.library.issue_book(self.book1, self.member1)
+        
+        return_details = self.library.get_book_return_details(self.book1)
+        self.assertIsNone(return_details)
+
+    # Test: Library can get complete book history
+    def test_library_get_book_history(self):
+        """Test that library can retrieve complete book history"""
+        self.library.add_book(self.book1)
+        self.library.add_member(self.member1)
+        self.library.issue_book(self.book1, self.member1)
+        self.library.return_book(self.book1, self.member1)
+        
+        history = self.library.get_book_history(self.book1)
+        
+        # Verify history contains all required information
+        self.assertIsNotNone(history)
+        self.assertIn('book_id', history)
+        self.assertIn('title', history)
+        self.assertIn('is_available', history)
+        self.assertIn('borrow_details', history)
+        self.assertIn('return_details', history)
+        
+        # Verify values
+        self.assertEqual(history['book_id'], 1)
+        self.assertEqual(history['title'], 'The Great Gatsby')
+        self.assertTrue(history['is_available'])
+        self.assertIsNotNone(history['return_details'])
+        self.assertIsNone(history['borrow_details'])  # Book is now available
+
+    # Test: Library book history for currently borrowed book
+    def test_library_get_book_history_borrowed(self):
+        """Test book history for currently borrowed book"""
+        self.library.add_book(self.book1)
+        self.library.add_member(self.member1)
+        self.library.issue_book(self.book1, self.member1)
+        
+        history = self.library.get_book_history(self.book1)
+        
+        # Verify history for borrowed book
+        self.assertFalse(history['is_available'])
+        self.assertIsNotNone(history['borrow_details'])
+        self.assertIsNone(history['return_details'])
+
 
 class TestErrorHandling(unittest.TestCase):
     """Test cases for error handling and edge cases"""
@@ -438,6 +640,39 @@ class TestErrorHandling(unittest.TestCase):
         self.assertIn(book, member.borrowed_books)
         member.return_book(book)
         self.assertNotIn(book, member.borrowed_books)
+
+    # Test: Datetime tracking across multiple borrow/return cycles
+    def test_datetime_tracking_multiple_cycles(self):
+        """Test that datetime tracking works correctly across multiple cycles"""
+        book = Book(1, "Multi-Cycle Book", "Author", "Fiction")
+        member1 = Member(1, "Alice", 25, "alice@example.com")
+        member2 = Member(2, "Bob", 30, "bob@example.com")
+        
+        # First cycle - member1 borrows and returns
+        book.borrow(member=member1)
+        first_borrow_member = book.borrowed_by
+        first_borrow_time = book.borrowed_at
+        self.assertEqual(first_borrow_member.member_id, 1)
+        
+        book.return_book(member=member1)
+        first_return_member = book.returned_by
+        first_return_time = book.returned_at
+        self.assertEqual(first_return_member.member_id, 1)
+        
+        # Second cycle - member2 borrows and returns
+        book.borrow(member=member2)
+        second_borrow_member = book.borrowed_by
+        second_borrow_time = book.borrowed_at
+        self.assertEqual(second_borrow_member.member_id, 2)
+        # Second borrow time should be later than first
+        self.assertGreater(second_borrow_time, first_borrow_time)
+        
+        book.return_book(member=member2)
+        second_return_member = book.returned_by
+        second_return_time = book.returned_at
+        self.assertEqual(second_return_member.member_id, 2)
+        # Second return time should be later than first
+        self.assertGreater(second_return_time, first_return_time)
 
 
 if __name__ == '__main__':

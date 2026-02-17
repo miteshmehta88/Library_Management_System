@@ -42,11 +42,17 @@ Represents a book in the library with the following attributes and methods:
 - `author` (str): Author of the book
 - `genre` (str): Genre/category of the book
 - `is_available` (bool): Availability status (True if available, False if borrowed)
+- `borrowed_at` (datetime): Timestamp when the book was borrowed (None if available)
+- `borrowed_by` (Member): Reference to member who borrowed the book (None if available)
+- `returned_at` (datetime): Timestamp when the book was last returned (None if never returned)
+- `returned_by` (Member): Reference to member who returned the book (None if never returned)
 
 **Methods:**
-- `__init__(book_id, title, author, genre)`: Initializes a Book with ID, title, author, and genre; marks it as available by default
-- `borrow()`: Marks the book as borrowed if it's available; returns True if successful, False otherwise
-- `return_book()`: Marks the book as available when it is returned to the library
+- `__init__(book_id, title, author, genre)`: Initializes a Book with ID, title, author, and genre; marks it as available by default; initializes temporal tracking fields
+- `borrow(member=None)`: Marks the book as borrowed if available and records timestamp and member who borrowed it
+- `return_book(member=None)`: Marks the book as available when returned and records timestamp and member who returned it
+- `get_borrow_details()`: Returns dictionary with borrowed_at timestamp, borrowed_by member name, and borrowed_by_id; None if book is available
+- `get_return_details()`: Returns dictionary with returned_at timestamp, returned_by member name, and returned_by_id; None if book is currently borrowed
 - `__str__()`: Returns a string representation of the book with its title, author, ID, and availability status
 
 ### Member (`member.py`)
@@ -60,8 +66,8 @@ Represents a library member with the following attributes and methods:
 - `contact_info` (str): Member's contact information (email/phone)
 - `borrowed_books` (list): List of books currently borrowed by the member
 
-**Methods:**
-- `__init__(member_id, name, age, contact_info)`: Initializes a Member with ID, name, age, contact info, and an empty borrowed books list
+**Methods:**; passes member context for temporal tracking
+- `return_book(book)`: Removes a book from the member's borrowed list and marks it as available; passes member context for temporal trackingn empty borrowed books list
 - `borrow_book(book)`: Allows a member to borrow a book if they haven't reached the 5-book limit and the book is available
 - `return_book(book)`: Removes a book from the member's borrowed list and marks it as available in the library
 - `__str__()`: Returns a string representation of the member including their name, ID, and list of borrowed books
@@ -84,12 +90,15 @@ Manages all books, members, and operations in the library with the following met
 - `remove_member(member)`: Removes a specific member from the library's member list if they exist
 - `display_books()`: Displays all books currently in the library's collection
 - `display_members()`: Displays all registered members in the library
-- `issue_book(book, member)`: Issues a book to a member if the book is available; otherwise prints an error message
-- `return_book(book, member)`: Processes the return of a book from a member; validates that the member actually borrowed it
+- `issue_book(book, member)`: Issues a book to a member if available; passes member context for temporal tracking
+- `return_book(book, member)`: Processes book return from member; passes member context for temporal tracking
 - `available_books(genre=None)`: Returns a list of available books, optionally filtered by genre
 - `members_with_borrowed_books(members)`: Returns a list of members who have borrowed books from the library
 - `search_book(keyword)`: Searches for a book by title or author using a keyword (case-insensitive); returns the first match or None
 - `most_popular_genre_from_issued_books()`: Determines the most popular genre among currently issued (borrowed) books
+- `get_book_borrow_details(book)`: Returns dictionary with current borrow timestamp and member info if book is borrowed; None if available
+- `get_book_return_details(book)`: Returns dictionary with last return timestamp and member info if book has been returned; None if never returned
+- `get_book_history(book)`: Returns complete history dictionary including book ID, title, current status, borrow details, and return details
 
 ## Main Application (`main.py`)
 
@@ -128,6 +137,9 @@ Contains captured output from both the main application and test suite execution
 3. **Borrowing System**: Members can borrow up to 5 books at a time
 4. **Book Return**: Track book returns and update availability
 5. **Availability Tracking**: Monitor which books are available or borrowed
+9. **Datetime Tracking**: Capture when books are borrowed/returned and by which member
+10. **Borrowing History**: Query complete borrowing history including timestamps and member associations
+11. **Audit Trail**: Comprehensive temporal tracking for operational intelligence and auditing
 6. **Genre Filtering**: Filter books by genre and view statistics
 7. **Search Functionality**: Find books by title or author name
 8. **Popular Genre Analysis**: Identify the most popular genre among borrowed books

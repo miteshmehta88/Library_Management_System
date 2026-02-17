@@ -172,6 +172,27 @@ def display_most_popular_genre_from_issued_books(library):
     else:
         print("No issued books to determine most popular genre.\n")
 
+# Displays borrowing and return history for a specific book
+def display_book_history(library, book):
+    print(f"\n================== Book History: {book.title} ==================")
+    history = library.get_book_history(book)
+    if history:
+        print(f"Book ID: {history['book_id']}")
+        print(f"Title: {history['title']}")
+        print(f"Availability Status: {'Available' if history['is_available'] else 'Borrowed'}")
+        
+        if history['borrow_details']:
+            print(f"\nCurrent Borrow Details:")
+            print(f"  Borrowed At: {history['borrow_details']['borrowed_at']}")
+            print(f"  Borrowed By: {history['borrow_details']['borrowed_by']} (ID: {history['borrow_details']['borrowed_by_id']})")
+        
+        if history['return_details']:
+            print(f"\nLast Return Details:")
+            print(f"  Returned At: {history['return_details']['returned_at']}")
+            print(f"  Returned By: {history['return_details']['returned_by']} (ID: {history['return_details']['returned_by_id']})")
+    else:
+        print("Unable to retrieve book history.")
+
 # Main entry point that orchestrates the entire library management system demonstration
 def main():
     try:
@@ -205,6 +226,23 @@ def main():
 
         # Display the most popular genre among issued books
         display_most_popular_genre_from_issued_books(library)
+        
+        # Display borrowing and return history for books using the new datetime tracking feature
+        logger.info("\n================== Demonstrating Datetime Tracking Feature ==================")
+        
+        # Show history of currently borrowed books (not available)
+        print("\n--- Borrowed Books (Current) ---")
+        for book in library.books:
+            if not book.is_available and book.borrowed_at:
+                display_book_history(library, book)
+                break  # Show just one borrowed book for demonstration
+        
+        # Show history of returned books (available with return history)
+        print("\n--- Returned Books (Available) ---")
+        for book in library.books:
+            if book.is_available and book.returned_at:
+                display_book_history(library, book)
+                break  # Show just one returned book for demonstration
         
         logger.info("Library Management System completed successfully")
     except Exception as e:
